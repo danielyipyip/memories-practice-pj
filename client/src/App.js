@@ -2,10 +2,23 @@ import React from "react";
 import {AppBar, Container, Grow, Typography, Grid} from '@mui/material';
 import Posts from "./components/posts/Posts.js"
 import Form from "./components/form/Form.js"
-import useStyle from './styles'
+import useStyles from './styles'
+
+import {useSelector, useDispatch} from 'react-redux'
+import { getPost, fetchPost } from "./components/redux/posts/postAction.js";
+import { useEffect } from "react"; 
 
 const App = () =>{
-    const classes = useStyle();
+    const classes = useStyles();
+
+    const posts = useSelector(state => state.post.data);
+    const dispatch = useDispatch();
+    console.log(posts);
+    useEffect( ()=>{
+        dispatch(getPost());
+    }, [])
+    console.log(posts);
+
     return (
         <div>
         <Container max-width='lg'>
@@ -15,7 +28,7 @@ const App = () =>{
             </AppBar>
             <Grow in>
                 <Container>
-                    <Grid container justify='space-between' alignItem='stretch' spacing='3'>
+                    <Grid container justify='space-between' alignItems='stretch' spacing='3'>
                         <Grid item xs={12} sm={7}><Posts /></Grid>
                         <Grid item xs={12} sm={4}><Form /></Grid>
                     </Grid>
