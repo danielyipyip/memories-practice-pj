@@ -4,20 +4,12 @@ import Posts from "./components/posts/Posts.js"
 import Form from "./components/form/Form.js"
 import useStyles from './styles'
 
-import {useSelector, useDispatch} from 'react-redux'
-import { getPost, fetchPost } from "./components/redux/posts/postAction.js";
-import { useEffect } from "react"; 
+
 
 const App = () =>{
     const classes = useStyles();
 
-    const posts = useSelector(state => state.post.data);
-    const dispatch = useDispatch();
-    console.log(posts);
-    useEffect( ()=>{
-        dispatch(getPost());
-    }, [])
-    console.log(posts);
+
 
     return (
         <div>
