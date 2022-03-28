@@ -1,5 +1,5 @@
 import {fetchPost, fetchSuccess, fetchError, createPost} from './postAction'
-import {FETCH_POST, CREATE_POST, UPDATE_POST, DELETE_POST, FETCH_SUCCESS, FETCH_ERROR} from './postType'
+import {FETCH_POST, CREATE_POST, CREATE_SUCCESS, UPDATE_POST, DELETE_POST, FETCH_SUCCESS, FETCH_ERROR} from './postType'
 
 
 const initialState = {
@@ -20,7 +20,9 @@ const reducer = (state=initialState, action) =>{
             console.log('error');
             return {...state, loading: false, error: action.payload}
         case CREATE_POST: 
-            return {...state, loacing: true, error: ''}
+            return {...state, loading: true, error: ''}
+        case CREATE_SUCCESS:
+            return {...state, loading: false}
         default:
             return state
     }

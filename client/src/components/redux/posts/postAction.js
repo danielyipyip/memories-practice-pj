@@ -32,11 +32,15 @@ export const createPost = (data) =>{
     return {type: postTypes.CREATE_POST, payload: data}
 }
 
+export const createSuccess = () =>{
+    return {type: postTypes.CREATE_SUCCESS}
+}
+
 export const postPost = (newPost) => {
     return (dispatch) => {
         dispatch( createPost(newPost) )
         axios.post(url, newPost)
-        .then(data => dispatch(fetchSuccess(data.data)))
+        .then(data => dispatch(createSuccess(data.data)))
         .catch(error => dispatch(fetchError(error)))
     }
 }
