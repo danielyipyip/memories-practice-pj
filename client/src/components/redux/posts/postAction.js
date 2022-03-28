@@ -19,7 +19,7 @@ export const fetchError = (error) =>{
     }
 }
 
-export const getPost = (dispatch) =>{
+export const getPost = () =>{
     return (dispatch) => {
         dispatch( fetchPost() )
         axios.get(url)
@@ -30,4 +30,13 @@ export const getPost = (dispatch) =>{
 
 export const createPost = (data) =>{
     return {type: postTypes.CREATE_POST, payload: data}
+}
+
+export const postPost = (newPost) => {
+    return (dispatch) => {
+        dispatch( createPost(newPost) )
+        axios.post(url, newPost)
+        .then(data => dispatch(fetchSuccess(data.data)))
+        .catch(error => dispatch(fetchError(error)))
+    }
 }

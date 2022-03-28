@@ -2,8 +2,10 @@ import React, {useState} from 'react'
 import {TextField, Button, Typography, Paper} from '@mui/material'
 import useStyles from "./styles"
 import FileBase from 'react-file-base64'
+import {useDispatch} from 'react-redux'
+import {postPost} from '../redux/posts/postAction'
 
-function Form() {
+function Form(props) {
   const classes = useStyles();
 
   const initialPostData = {    
@@ -15,15 +17,22 @@ function Form() {
   }
 
   const [postData, setPostData] = useState(initialPostData);
+  const dispatch = useDispatch();
 
   const handleChange = evt =>{
+    // console.log(evt)
+    // console.log(evt.target)
+    // console.log(evt.target.name)
     setPostData(prev => {
       return {...prev, [evt.target.name]: evt.target.value}
     })
   }
 
   const handleSubmit = async (evt) => {
-
+    evt.preventDefault();
+    console.log(postData);
+    dispatch(postPost(postData))
+    clear();
   }
 
   const clear = () => {setPostData(initialPostData);}
@@ -32,12 +41,13 @@ function Form() {
     <Paper className={classes.paper}>
       Form
       <form className={classes.form+" "+classes.root} autoComplete='off' noValidate onSubmit={handleSubmit}>
-        <Typography variant='h6'>{}</Typography>
+        <Typography variant='h6'>{props.currentId}</Typography>
         <TextField variant='outlined' value={postData.creator} onChange={evt => handleChange(evt)} name="creator" label="Creator" fullWidth />
         <TextField variant='outlined' value={postData.title} onChange={evt => handleChange(evt)} name="title" label="Title" fullWidth />
         <TextField variant='outlined' value={postData.message} onChange={evt => handleChange(evt)} name="message" label="Message" fullWidth />
-        <TextField variant='outlined' value={postData.tag} onChange={evt => handleChange(evt)} name="tag" label="Tag" fullWidth />
-        <div className={classes.fileInput}><FileBase type='file' multiple={false} onDone={ evt => handleChange(evt)}></FileBase></div>
+        <TextField variant='outlined' value={postData.tag} onChange={
+          evt => setPostData(prev => {return {...prev, tag: evt.target.value.split(' ')}})} name="tag" label="Tag" fullWidth />
+        <div className={classes.fileInput}><FileBase type='file' multiple={false} onDone={ evt => setPostData(prev => {return {...prev, file: evt}})}></FileBase></div>
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>
