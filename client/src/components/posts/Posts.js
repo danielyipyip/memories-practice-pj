@@ -20,7 +20,7 @@ function Posts(props) {
                 <Grid key={post.id} item xs={12} sm={6}>
                   <Post post={post} setCurrentId={props.setCurrentId}/>
                 </Grid>);
-            })}       
+            })}
           </Grid>
         )
   )

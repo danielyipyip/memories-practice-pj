@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {TextField, Button, Typography, Paper} from '@mui/material'
 import useStyles from "./styles"
 import FileBase from 'react-file-base64'
-import {useDispatch} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
 import {postPost} from '../redux/posts/postAction'
 
 function Form(props) {

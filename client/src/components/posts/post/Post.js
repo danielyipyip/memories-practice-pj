@@ -3,10 +3,22 @@ import useStyles from './styles'
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material'
 import {MoreHoriz, ThumbUpAlt, Delete} from '@mui/icons-material';
 import moment from 'moment'
+import {useDispatch} from 'react-redux'
+import {updateId} from '../../redux/index'
+
+
 
 function Post({post, setCurrentId}) {
     const classes = useStyles();
     const defaultImg = 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png';
+
+    const dispatch=useDispatch();
+    const updateButton = (id) =>{
+      console.log(id)
+      dispatch(updateId(id))
+    }
+
+
   return (
     <Card className={classes.card}>
       <CardMedia className={classes.media} image={post.selectedFile || defaultImg} title={post.title}/>
@@ -17,7 +29,7 @@ function Post({post, setCurrentId}) {
       </div>
   {/* the 3 dot */}
       <div className={classes.overlay2}>
-        <Button style={{color: 'white'}} size='small' onClick={()=>{var a=1}}><MoreHoriz fontSize='large'/></Button>
+        <Button style={{color: 'white'}} size='small' onClick={()=>updateButton(post._id)}><MoreHoriz fontSize='large'/></Button>
       </div>
   {/* tags */}
       <div className={classes.details}>
