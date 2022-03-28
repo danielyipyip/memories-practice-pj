@@ -10,6 +10,17 @@ export const getPost = async (req, res) => {
     }
 }
 
+export const getAPost = async(req, res) => {
+    const{id}=req.params
+    try{
+        const post = await postModel.findById(id);
+        // console.log(post)
+        return res.status(200).json(post);
+    }catch(err){
+        return res.status(401).json({message: err})
+    }
+}
+
 export const createPost = async (req, res) => {
     const data = req.body;
     const newPost = new postModel(data);
@@ -24,13 +35,8 @@ export const createPost = async (req, res) => {
 export const updatePost = async(req, res) => {
     const {id} = req.params;
     const data = req.body;
-    mongoose.isValidObjectId(id)
-    .then(
-        ()=>{
-            postModel.findByIdAndUpdate(id, {...data, id}, {new: true})
-            .then( post => res.status(200).json(post) )
-            .catch(err => res.send(400).json({message: err}))
-        }
-    )
-    .catch(err => res.send(404).json({message: err}))
+    if (!mongoose.isValidObjectId(id)) return res.status(404).json({message: 'cannot find the post'})
+    postModel.findByIdAndUpdate(id, {...data, id}, {new: true})
+    .then( post => res.status(200).json(post) )
+    .catch(err => res.send(400).json({message: err}))
 }

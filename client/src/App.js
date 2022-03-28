@@ -11,19 +11,12 @@ import { getPost } from "./components/redux/posts/postAction";
 const App = () =>{
     const classes = useStyles();
 
-    const [currentId, setCurrentId] = useState(0);
-
-
     const dispatch = useDispatch();
     const posts = useSelector(state => state.post.posts)
-
-    // const id = useSelector(state => state.id.id)
-    // console.log('id:'+id)
-    // console.log(posts);
+    const id = useSelector(state => state.id.id)
     useEffect( ()=>{
         dispatch(getPost());
-        console.log('fire in App')
-    }, [posts])
+    }, [posts, id])
 
     return (
         <div>
@@ -35,8 +28,8 @@ const App = () =>{
             <Grow in>
                 <Container>
                     <Grid container justify='space-between' alignItems='stretch' spacing='3'>
-                        <Grid item xs={12} sm={7}><Posts currentId={currentId}/></Grid>
-                        <Grid item xs={12} sm={4}><Form currentId={currentId} setCurrentId={setCurrentId}/></Grid>
+                        <Grid item xs={12} sm={7}><Posts /></Grid>
+                        <Grid item xs={12} sm={4}><Form /></Grid>
                     </Grid>
                 </Container>
             </Grow>

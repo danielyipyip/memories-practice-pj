@@ -1,28 +1,23 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import {TextField, Button, Typography, Paper} from '@mui/material'
 import useStyles from "./styles"
 import FileBase from 'react-file-base64'
 import {useSelector, useDispatch} from 'react-redux'
 import {postPost} from '../redux/posts/postAction'
+import { getOnePost, updateId, UpdatePost } from '../redux'
 
-function Form(props) {
+function Form() {
   const classes = useStyles();
-
-  const initialPostData = {    
-    creator: '',
-    title: '',
-    message: '',
-    tags: '',
-    selectedFile: '',
-  }
-
+  const initialPostData = {creator: '', title: '', message: '', tags: '', selectedFile: '',}
   const [postData, setPostData] = useState(initialPostData);
-  const dispatch = useDispatch();
+  let id = useSelector(status => status.id.id);
+  let post = useSelector(status => status.id.data)
 
+  // console.log(post);
+
+  const dispatch = useDispatch();
+ 
   const handleChange = evt =>{
-    // console.log(evt)
-    // console.log(evt.target)
-    // console.log(evt.target.name)
     setPostData(prev => {
       return {...prev, [evt.target.name]: evt.target.value}
     })
@@ -30,18 +25,28 @@ function Form(props) {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    console.log(postData);
-    dispatch(postPost(postData))
+    if (id!=0){
+      dispatch(UpdatePost(id, postData))
+    }else{
+      dispatch(postPost(postData))
+    }
     clear();
   }
 
-  const clear = () => {setPostData(initialPostData);}
+  useEffect(()=>{
+    if (id!=0){dispatch(getOnePost(id))}
+  }, [id])
+
+  useEffect(()=>{
+    setPostData(post)
+  }, [post])
+
+  const clear = () => { dispatch(updateId(0));setPostData(initialPostData);}
 
   return (
     <Paper className={classes.paper}>
-      Form
       <form className={classes.form+" "+classes.root} autoComplete='off' noValidate onSubmit={handleSubmit}>
-        <Typography variant='h6'>{props.currentId}</Typography>
+        <Typography variant='h6'>{id!==0? `Editing "${post.title}"`: 'Creating New Memory'}</Typography>
         <TextField variant='outlined' value={postData.creator} onChange={evt => handleChange(evt)} name="creator" label="Creator" fullWidth />
         <TextField variant='outlined' value={postData.title} onChange={evt => handleChange(evt)} name="title" label="Title" fullWidth />
         <TextField variant='outlined' value={postData.message} onChange={evt => handleChange(evt)} name="message" label="Message" fullWidth />

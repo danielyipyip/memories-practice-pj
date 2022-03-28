@@ -14,7 +14,7 @@ function Post({post, setCurrentId}) {
 
     const dispatch=useDispatch();
     const updateButton = (id) =>{
-      console.log(id)
+      // console.log(id)
       dispatch(updateId(id))
     }
 

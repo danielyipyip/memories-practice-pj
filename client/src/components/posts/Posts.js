@@ -6,7 +6,7 @@ import { Grid, CircularProgress } from '@mui/material'
 import {useSelector, useDispatch} from 'react-redux'
 import { getPost } from "../redux/posts/postAction";
 
-function Posts(props) {
+function Posts() {
     const classes = useStyles();
 
     const loading = useSelector(state => state.loading);
@@ -18,7 +18,7 @@ function Posts(props) {
             {posts.map(post => {
               return (
                 <Grid key={post.id} item xs={12} sm={6}>
-                  <Post post={post} setCurrentId={props.setCurrentId}/>
+                  <Post post={post}/>
                 </Grid>);
             })}
           </Grid>
