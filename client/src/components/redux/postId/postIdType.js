@@ -1,0 +1,1 @@
+export const UPDATE_CURRENT_ID = 'UPDATE_CURRENT_ID';

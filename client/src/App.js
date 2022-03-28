@@ -15,7 +15,10 @@ const App = () =>{
 
 
     const dispatch = useDispatch();
-    const posts = useSelector(state => state.posts)
+    const posts = useSelector(state => state.post.posts)
+
+    const id = useSelector(state => state.id.id)
+    console.log('id:'+id)
     // console.log(posts);
     useEffect( ()=>{
         dispatch(getPost());
