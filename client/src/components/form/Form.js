@@ -12,8 +12,8 @@ function Form(props) {
     creator: '',
     title: '',
     message: '',
-    tag: '',
-    file: '',
+    tags: '',
+    selectedFile: '',
   }
 
   const [postData, setPostData] = useState(initialPostData);
@@ -45,9 +45,12 @@ function Form(props) {
         <TextField variant='outlined' value={postData.creator} onChange={evt => handleChange(evt)} name="creator" label="Creator" fullWidth />
         <TextField variant='outlined' value={postData.title} onChange={evt => handleChange(evt)} name="title" label="Title" fullWidth />
         <TextField variant='outlined' value={postData.message} onChange={evt => handleChange(evt)} name="message" label="Message" fullWidth />
-        <TextField variant='outlined' value={postData.tag} onChange={
-          evt => setPostData(prev => {return {...prev, tag: evt.target.value.split(' ')}})} name="tag" label="Tag" fullWidth />
-        <div className={classes.fileInput}><FileBase type='file' multiple={false} onDone={ evt => setPostData(prev => {return {...prev, file: evt}})}></FileBase></div>
+        <TextField variant='outlined' value={postData.tags} onChange={
+          evt => setPostData(prev => {return {...prev, tags: evt.target.value.split(' ')}})} name="tag" label="Tag" fullWidth />
+        <div className={classes.fileInput}>
+          <FileBase type='file' multiple={false} onDone={
+            ({base64}) => setPostData(prev => {return {...prev, selectedFile: base64}})}></FileBase>
+        </div>
         <Button className={classes.buttonSubmit} variant="contained" color="primary" size="large" type="submit" fullWidth>Submit</Button>
         <Button variant="contained" color="secondary" size="small" onClick={clear} fullWidth>Clear</Button>
       </form>

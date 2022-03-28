@@ -20,7 +20,7 @@ const reducer = (state=initialState, action) =>{
             console.log('error');
             return {...state, loading: false, error: action.payload}
         case CREATE_POST: 
-            return {...state, loacing: true, data: action.payload, error: ''}
+            return {...state, loacing: true, error: ''}
         default:
             return state
     }
