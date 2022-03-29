@@ -56,3 +56,15 @@ export const DeletePost = (id) =>{
         .catch(error => dispatch(fetchError(error)))
     }
 }
+
+export const likePost = (id, data) =>{
+    return {type: postTypes.LIKE_POST, payload: {id, data}}
+}
+
+export const LikePost = (id) => {
+    return (dispatch) => {
+        axios.patch(`${url}/${id}/likePost`)
+        .then( (data)=>dispatch(likePost(id, data.data)) )
+        .catch(error => dispatch(fetchError(error)))
+    }
+}

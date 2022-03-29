@@ -4,7 +4,7 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@
 import {MoreHoriz, ThumbUpAlt, Delete} from '@mui/icons-material';
 import moment from 'moment'
 import {useDispatch} from 'react-redux'
-import {DeletePost, updateId} from '../../redux/index'
+import {DeletePost, updateId, LikePost} from '../../redux/index'
 
 
 
@@ -12,14 +12,19 @@ function Post({post}) {
     const classes = useStyles();
     const defaultImg = 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png';
 
+  
+
     const dispatch=useDispatch();
     const updateButton = (id) =>{
       dispatch(updateId(id))
-    }
-
-    
+    }    
     const deleteButton = (id) =>{
       dispatch(DeletePost(id))
+    }
+    const likeButton = (id) =>{
+      dispatch(LikePost(id))
+      console.log(post);
+      console.log(post.tags);
     }
 
 
@@ -37,7 +42,7 @@ function Post({post}) {
       </div>
   {/* tags */}
       <div className={classes.details}>
-        <Typography variant='body2' color='textSecondary' component='h2'>{post.tags.map(tag=>'#'+tag+' ')}</Typography>
+        <Typography variant='body2' color='textSecondary' component='h2'>{post.tags.map(tag=>`#${tag} `)}</Typography>
       </div>
   {/* title & content */}
       <Typography className={classes.title} gutterBottom variant='h5' component='h2'>{post.title}</Typography>
@@ -45,7 +50,7 @@ function Post({post}) {
         <Typography variant='body2' color='textSecondary' component='p'>{post.message}</Typography>
       </CardContent>
       <CardActions className={classes.cardActions}>
-        <Button size='small' color='primary' onClick={()=>(1)}><ThumbUpAlt fontSize='small'/>Like {post.likeCount}</Button>
+        <Button size='small' color='primary' onClick={()=>likeButton(post._id)}><ThumbUpAlt fontSize='small'/>Like {post.likeCount}</Button>
         <Button size='small' color='primary' onClick={()=>deleteButton(post._id)}><Delete fontSize='small'/>Delete</Button>
       </CardActions>
     </Card>

@@ -48,3 +48,18 @@ export const deletePost = async(req, res) => {
     .then(() => res.status(200).json({message: 'Post deleted successfully'}))
     .catch(err => res.send(400).json({message: err}))
 }
+
+export const likePost = async(req, res) =>{
+    const {id} = req.params;
+    if (!mongoose.isValidObjectId(id)) return res.status(404).json({message: 'cannot find the post'})
+    postModel.findById(id)
+    .then(
+        post => {
+            post.likeCount = post.likeCount+1;
+            post.save()
+            .then(res.status(200).json(post))
+            .catch(err => res.send(400).json({message: err}))
+        }
+    )
+    .catch(err => res.send(400).json({message: err}))
+}

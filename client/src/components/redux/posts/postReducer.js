@@ -1,5 +1,5 @@
 import {fetchPost, fetchSuccess, fetchError, createPost} from './postAction'
-import {FETCH_POST, CREATE_POST, CREATE_SUCCESS, UPDATE_POST, DELETE_POST, FETCH_SUCCESS, FETCH_ERROR} from './postType'
+import {FETCH_POST, CREATE_POST, CREATE_SUCCESS, UPDATE_POST, DELETE_POST, FETCH_SUCCESS, FETCH_ERROR, LIKE_POST} from './postType'
 
 
 const initialState = {
@@ -25,6 +25,8 @@ const reducer = (state=initialState, action) =>{
             return {...state, loading: false}
         case DELETE_POST:
             return {...state, data: state.data.filter(post=>post._id!=action.payload)}
+        case LIKE_POST:
+            return {...state, data: state.data.map(post=> post._id==action.payload.id? action.payload.data: post) }
         default:
             return state
     }
