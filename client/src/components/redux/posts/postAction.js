@@ -1,7 +1,7 @@
 import * as postTypes from './postType'
 import axios from 'axios'
 
-const url='http://localhost:5000/posts'
+const url='https://memories-practice.herokuapp.com/posts'
 
 export const fetchPost = () =>{
     return {type: postTypes.FETCH_POST}

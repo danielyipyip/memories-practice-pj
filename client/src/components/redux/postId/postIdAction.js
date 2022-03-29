@@ -1,7 +1,7 @@
 import {UPDATE_CURRENT_ID, GET_A_POST, UPDATE_POST} from './postIdType'
 import axios from 'axios'
 
-const url='http://localhost:5000/posts'
+const url='https://memories-practice.herokuapp.com/posts'
 
 export const updateId = (id)=>{
     return {type: UPDATE_CURRENT_ID, payload: id}
