@@ -7,7 +7,9 @@ import store from './components/redux/store'
 
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles'
 
-const theme = createTheme();
+const theme = createTheme(
+    {flexDirection: 'column-reverse'}
+);
 
 ReactDOM.render(
     <Provider store={store}>

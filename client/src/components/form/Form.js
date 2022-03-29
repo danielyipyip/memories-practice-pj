@@ -53,7 +53,7 @@ function Form() {
         <TextField variant='outlined' value={postData.title} onChange={evt => handleChange(evt)} name="title" label="Title" fullWidth />
         <TextField variant='outlined' value={postData.message} onChange={evt => handleChange(evt)} name="message" label="Message" fullWidth />
         <TextField variant='outlined' value={postData.tags} onChange={
-          evt => setPostData(prev => {return {...prev, tags: evt.target.value.split(' ')}})} name="tag" label="Tag" fullWidth />
+          evt => setPostData(prev => {return {...prev, tags: evt.target.value.split(',')}})} name="tag" label="Tag" fullWidth />
         <div className={classes.fileInput}>
           <FileBase type='file' multiple={false} onDone={
             ({base64}) => setPostData(prev => {return {...prev, selectedFile: base64}})}></FileBase>

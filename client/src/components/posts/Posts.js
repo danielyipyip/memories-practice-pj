@@ -15,7 +15,7 @@ function Posts() {
   //need to fetch in App, why? (fetch here will cause infinite re-fetch)
   return (
         loading ? <CircularProgress />: (
-          <Grid className={classes.container} container alignItems='stretch' spacing={3}>
+          <Grid className={classes.mainContainer} container alignItems='stretch' spacing={3}>
             {posts.map(post => {
               return (
                 <Grid key={post.id} item xs={12} sm={6}>
