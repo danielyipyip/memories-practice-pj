@@ -40,7 +40,19 @@ export const postPost = (newPost) => {
     return (dispatch) => {
         dispatch( createPost(newPost) )
         axios.post(url, newPost)
-        .then(data => dispatch(createSuccess(data.data)))
+        .then(data => {dispatch(createSuccess(data.data)); dispatch(getPost());})
+        .catch(error => dispatch(fetchError(error)))
+    }
+}
+
+export const deletePost = (id) =>{
+    return {type: postTypes.DELETE_POST, payload: id}
+}
+
+export const DeletePost = (id) =>{
+    return (dispatch) => {
+        axios.delete(`${url}/${id}`)
+        .then( ()=>dispatch(deletePost(id)) )
         .catch(error => dispatch(fetchError(error)))
     }
 }

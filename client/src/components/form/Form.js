@@ -27,8 +27,10 @@ function Form() {
     evt.preventDefault();
     if (id!=0){
       dispatch(UpdatePost(id, postData))
+      // dispatch(updateId(0))
     }else{
       dispatch(postPost(postData))
+      // dispatch(updateId(0))
     }
     clear();
   }
@@ -41,7 +43,7 @@ function Form() {
     setPostData(post)
   }, [post])
 
-  const clear = () => { dispatch(updateId(0));setPostData(initialPostData);}
+  const clear = () => {setPostData(initialPostData);}
 
   return (
     <Paper className={classes.paper}>

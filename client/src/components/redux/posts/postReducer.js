@@ -23,6 +23,8 @@ const reducer = (state=initialState, action) =>{
             return {...state, loading: true, error: ''}
         case CREATE_SUCCESS:
             return {...state, loading: false}
+        case DELETE_POST:
+            return {...state, data: state.data.filter(post=>post._id!=action.payload)}
         default:
             return state
     }

@@ -4,18 +4,22 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@
 import {MoreHoriz, ThumbUpAlt, Delete} from '@mui/icons-material';
 import moment from 'moment'
 import {useDispatch} from 'react-redux'
-import {updateId} from '../../redux/index'
+import {DeletePost, updateId} from '../../redux/index'
 
 
 
-function Post({post, setCurrentId}) {
+function Post({post}) {
     const classes = useStyles();
     const defaultImg = 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png';
 
     const dispatch=useDispatch();
     const updateButton = (id) =>{
-      // console.log(id)
       dispatch(updateId(id))
+    }
+
+    
+    const deleteButton = (id) =>{
+      dispatch(DeletePost(id))
     }
 
 
@@ -42,7 +46,7 @@ function Post({post, setCurrentId}) {
       </CardContent>
       <CardActions className={classes.cardActions}>
         <Button size='small' color='primary' onClick={()=>(1)}><ThumbUpAlt fontSize='small'/>Like {post.likeCount}</Button>
-        <Button size='small' color='primary' onClick={()=>(1)}><Delete fontSize='small'/>Delete</Button>
+        <Button size='small' color='primary' onClick={()=>deleteButton(post._id)}><Delete fontSize='small'/>Delete</Button>
       </CardActions>
     </Card>
   )

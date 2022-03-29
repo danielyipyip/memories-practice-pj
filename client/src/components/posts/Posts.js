@@ -11,6 +11,7 @@ function Posts() {
 
     const loading = useSelector(state => state.loading);
     const posts = useSelector(state => state.post.data);
+    // console.log(posts)
   //need to fetch in App, why? (fetch here will cause infinite re-fetch)
   return (
         loading ? <CircularProgress />: (
